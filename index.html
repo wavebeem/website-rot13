@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>rot13</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    html {
+      background: #eee;
+      color: #333;
+      padding: 10px;
+      margin: 0;
+      font-family: Helvetica, sans-serif;
+    }
+    body {
+      margin: 0 auto;
+      padding: 0;
+      max-width: 600px;
+    }
+    p {
+      font-size: 20px;
+    }
+    a {
+      text-decoration: underline;
+      color: #358;
+      font-weight: bold;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    h1 {
+      font-size: 40px;
+      text-align: center;
+    }
+    textarea {
+      font-family: inherit;
+      margin: 0;
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 2px solid rgba(0, 0, 0, 0.20);
+      background: rgba(255, 255, 255, 1);
+      color: inherit;
+      resize: vertical;
+      min-height: 10em;
+      display: block;
+      width: 100%;
+      border-radius: 4px;
+      font-size: 20px;
+    }
+    #input:focus {
+      border-color: #79c;
+      box-shadow: 0 0 4px #79c;
+    }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+    textarea[readonly] {
+      background: rgba(0, 0, 0, 0.02);
+      border-color: rgba(0, 0, 0, 0.05);
+    }
+    footer {
+      font-weight: bold;
+      text-align: center;
+    }
+    footer,
+    footer a {
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h1>rot13 encoder/decoder</h1>
+  <p>
+    <a href="https://en.wikipedia.org/wiki/ROT13">rot13</a>
+    is a great way to hide spoilers on the Internet.
+    Just put the text you want to encode or decode
+    into the white box and it will be converted automatically.
+  </p>
+  <label for="input" class="sr-only">input</label>
+  <textarea
+    id="input"
+    spellcheck="false"
+    placeholder="Type something here&hellip;"
+    oninput="translate()"
+  ></textarea>
+  <label for="output" class="sr-only">output</label>
+  <textarea
+    id="output"
+    onfocus="event.target.select()"
+    readonly
+  ></textarea>
+  <footer>
+    &copy; 2015 <a href="http://mockbrian.com/">Brian Mock
+  </footer>
+<script>
+  function $(selector) {
+    return document.querySelector(selector);
+  }
+  function translate() {
+    $("#output").value = rot13($("#input").value);
+  }
+  function rot13From(offset) {
+    return function(s) {
+      var i = s.charCodeAt(0) - offset;
+      var j = (i + 13) % 26;
+      return String.fromCharCode(offset + j);
+    };
+  }
+  function rot13(text) {
+    return text
+      .replace(/[a-z]/g, rot13From("a".charCodeAt(0)))
+      .replace(/[A-Z]/g, rot13From("A".charCodeAt(0)));
+  }
+</script>
+</body>
+</html>

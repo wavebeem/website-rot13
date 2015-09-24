@@ -111,7 +111,13 @@ var theOutput = $("#output");
 theInput.oninput = translate;
 theOutput.onfocus = selectTarget;
 function selectTarget(event) {
-  event.target.select();
+  /*
+    this timeout ensures select() is called after any built-in click handlers
+    that could otherwise clear the selection (as occurs reliably in Chrome).
+  */
+  window.setTimeout(function() {
+    event.target.select();
+  }, 0);
 }
 function translate() {
   theOutput.value = rot13(theInput.value);

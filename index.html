@@ -108,8 +108,8 @@ function $(selector) {
 }
 var theInput = $("#input");
 var theOutput = $("#output");
-theInput.addEventListener('input', translate);
-theOutput.addEventListener('focus', selectTarget);
+theInput.addEventListener("input", translate);
+theOutput.addEventListener("focus", selectTarget);
 function selectTarget(event) {
   /*
     this timeout ensures select() is called after any built-in click handlers

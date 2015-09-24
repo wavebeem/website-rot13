@@ -111,10 +111,8 @@ var theOutput = $("#output");
 theInput.addEventListener("input", translate);
 theOutput.addEventListener("focus", selectTarget);
 function selectTarget(event) {
-  /*
-    this timeout ensures select() is called after any built-in click handlers
-    that could otherwise clear the selection (as occurs reliably in Chrome).
-  */
+  // This timeout ensures select() is called after any built-in click handlers
+  // that could otherwise clear the selection (as occurs reliably in Chrome).
   window.setTimeout(function() {
     event.target.select();
   }, 0);
